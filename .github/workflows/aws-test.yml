@@ -68,3 +68,9 @@ jobs:
                 s3://${S3_ARTIFACT_BUCKET}/releases/${GITHUB_SHA}.zip
             aws s3 cp artifact.zip \
                 s3://${S3_ARTIFACT_BUCKET}/latest/current.zip
+      - name: Deploy
+        run: |
+          aws deploy create-deployment \
+            --application-name AutoDeployment \
+            --deployment-group-name AutoDeploymentLaravel \
+            --s3-location bucket=${S3_ARTIFACT_BUCKET},key=latest/current.zip,bundleType=zip
