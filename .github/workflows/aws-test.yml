@@ -68,6 +68,9 @@ jobs:
                 s3://${S3_ARTIFACT_BUCKET}/releases/${GITHUB_SHA}.zip
             aws s3 cp artifact.zip \
                 s3://${S3_ARTIFACT_BUCKET}/latest/current.zip
+      - name: Debug CodeDeploy
+        run: |
+          aws deploy list-applications
       - name: Deploy
         run: |
           aws deploy create-deployment \
