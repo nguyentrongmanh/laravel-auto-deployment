@@ -71,9 +71,7 @@ jobs:
       - name: Debug CodeDeploy
         run: |
           aws deploy list-applications
-      - name: Deploy
+      - name: Start Instance Refresh
         run: |
-          aws deploy create-deployment \
-            --application-name AutoDeployment \
-            --deployment-group-name AutoDeploymentLaravel \
-            --s3-location bucket=${S3_ARTIFACT_BUCKET},key=latest/current.zip,bundleType=zip
+          aws autoscaling start-instance-refresh \
+            --auto-scaling-group-name LaravelAutoScalingGroup
